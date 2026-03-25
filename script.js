@@ -64,7 +64,7 @@ function renderCart() {
 }
 
 // Place order
-function placeOrder() {
+async function placeOrder() {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
 
@@ -82,14 +82,28 @@ function placeOrder() {
     customer: name,
     phone: phone,
     items: Object.values(cart),
-    total: totalSpan.textContent
+    total: Number(totalSpan.textContent)
   };
 
-  console.log("Order Placed:", order);
+  try {
+    const res = await fetch("https://supermarket-backend-n3rl.onrender.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(order)
+    });
 
-  alert("Order placed successfully!");
+    const data = await res.json();
 
-  // Reset
-  cart = {};
-  renderCart();
+    alert("Order saved to database!");
+
+    cart = {};
+    renderCart();
+
+  } catch (err) {
+    console.error(err);
+    alert("Error saving order");
+  }
 }
+
