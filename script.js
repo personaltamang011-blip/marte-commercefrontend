@@ -86,7 +86,7 @@ async function placeOrder() {
   };
 
   try {
-    const res = await fetch("https://newsupermarket-backend.onrender.com", {
+    const res = await fetch("https://mart-backend-o7xd.onrender.com/place-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
