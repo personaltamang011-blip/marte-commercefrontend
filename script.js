@@ -86,7 +86,7 @@ async function placeOrder() {
   };
 
   try {
-    const res = await fetch("https://supermarket-backend-n3rl.onrender.com", {
+    const res = await fetch("https://newsupermarket-backend.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -106,4 +106,3 @@ async function placeOrder() {
     alert("Error saving order");
   }
 }
-
