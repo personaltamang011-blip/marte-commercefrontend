@@ -1,9 +1,20 @@
 const products = [
-  { name: "Rice", price: 1200 },
-  { name: "Oil", price: 300 },
-  { name: "Sugar", price: 150 }
+  {
+    name: "Rice",
+    price: 1200,
+    image: "images/rice.jpg"
+  },
+  {
+    name: "Oil",
+    price: 300,
+    image: "images/oil.jpg"
+  },
+  {
+    name: "Sugar",
+    price: 150,
+    image: "images/sugar.jpg"
+  }
 ];
-
 let cart = {};
 
 const productDiv = document.getElementById("products");
@@ -16,11 +27,14 @@ products.forEach((product, index) => {
   div.className = "product";
 
   div.innerHTML = `
-    <h3>${product.name}</h3>
-    <p>Rs ${product.price}</p>
-    <button onclick="addToCart(${index})">Add to Cart</button>
-  `;
+  <img src="${product.image}" alt="${product.name}">
+  <h3>${product.name}</h3>
+  <p>Rs ${product.price}</p>
 
+  <input type="number" id="qty-${index}" value="1" min="1">
+
+  <button onclick="addToCart(${index})">Add to Cart</button>
+`;
   productDiv.appendChild(div);
 });
 
@@ -28,10 +42,20 @@ products.forEach((product, index) => {
 function addToCart(index) {
   const product = products[index];
 
+  // 👉 Get quantity from input
+  const qtyInput = document.getElementById(`qty-${index}`);
+  const qty = parseInt(qtyInput.value);
+
+  if (qty <= 0 || isNaN(qty)) {
+    alert("Enter valid quantity");
+    return;
+  }
+
+  // 👉 Add to cart
   if (cart[product.name]) {
-    cart[product.name].qty++;
+    cart[product.name].qty += qty;
   } else {
-    cart[product.name] = { ...product, qty: 1 };
+    cart[product.name] = { ...product, qty: qty };
   }
 
   renderCart();
