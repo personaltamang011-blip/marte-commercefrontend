@@ -7,22 +7,20 @@
 </head>
 <body>
 
-  <h1>🛒 My Supermarket</h1>
+<!-- ✅ NAVBAR -->
+<nav class="navbar">
+  <h2>🛒 My Mart</h2>
+  <ul>
+    <li><a href="?page=home">Home</a></li>
+    <li><a href="?page=contact">Contact</a></li>
+    <li><a href="?page=about">About</a></li>
+    <li><a href="?page=admin">Admin</a></li>
+  </ul>
+</nav>
 
-  <div id="products"></div>
+<!-- ✅ DYNAMIC CONTENT -->
+<div id="content"></div>
 
-  <h2>Cart</h2>
-  <ul id="cart"></ul>
-
-  <h3>Total: Rs <span id="total">0</span></h3>
-
-  <h2>Customer Details</h2>
-  <input type="text" id="name" placeholder="Your Name">
-  <input type="text" id="phone" placeholder="Phone Number">
-
-  <br><br>
-  <button onclick="placeOrder()">Place Order</button>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
