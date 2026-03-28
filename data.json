@@ -1,0 +1,7 @@
+[
+  { "name": "Basmati Rice", "price": 1200, "image": "images/rice.jpg", "main": "Food", "sub": "Grains", "type": "Rice" },
+  { "name": "Brown Rice", "price": 900, "image": "images/rice.jpg", "main": "Food", "sub": "Grains", "type": "Rice" },
+  { "name": "Sunflower Oil", "price": 300, "image": "images/oil.jpg", "main": "Food", "sub": "Oil", "type": "Refined Oil" },
+  { "name": "Mustard Oil", "price": 350, "image": "images/oil.jpg", "main": "Food", "sub": "Oil", "type": "Cold Pressed" },
+  { "name": "Sugar", "price": 150, "image": "images/sugar.jpg", "main": "Food", "sub": "Sweeteners", "type": "Sugar" }
+]
