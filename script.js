@@ -1,5 +1,8 @@
 /* ================= CONFIG ================= */
-const API_URL = "https://mart-backend-o7xd.onrender.com/place-order"; // change to Render later
+// Base API URL for local or Render hosting
+const API_BASE = window.location.hostname === "localhost"
+  ? "http://localhost:5000"
+  : "https://mart-backend-o7xd.onrender.com";
 
 /* ================= PRODUCTS ================= */
 const products = [
@@ -19,42 +22,30 @@ function loadPage() {
   if (page === "home") {
     content.innerHTML = `
       <h1>🛒 My Supermarket</h1>
-
       <div id="products"></div>
-
       <h2>Cart</h2>
       <ul id="cart"></ul>
-
       <h3>Total: Rs <span id="total">0</span></h3>
-
       <h2>Customer Details</h2>
       <input type="text" id="name" placeholder="Your Name">
       <input type="text" id="phone" placeholder="Phone Number">
-
       <br><br>
       <button onclick="placeOrder()">Place Order</button>
     `;
-
     showProducts();
     renderCart();
-  }
-
-  else if (page === "contact") {
+  } else if (page === "contact") {
     content.innerHTML = `
       <h1>Contact Us</h1>
       <p>📞 Phone: 98XXXXXXXX</p>
       <p>📧 Email: mart@gmail.com</p>
     `;
-  }
-
-  else if (page === "about") {
+  } else if (page === "about") {
     content.innerHTML = `
       <h1>About Us</h1>
       <p>This is a supermarket project built using Node.js and MongoDB.</p>
     `;
-  }
-
-  else if (page === "admin") {
+  } else if (page === "admin") {
     content.innerHTML = `
       <h1>📦 Admin Panel</h1>
       <button onclick="loadOrders()">Load Orders</button>
@@ -69,7 +60,7 @@ async function loadOrders() {
   orderDiv.innerHTML = "Loading...";
 
   try {
-    const res = await fetch(`${API_URL}/orders`);
+    const res = await fetch(`${API_BASE}/orders`);
     const data = await res.json();
     const orders = data.data || data;
 
@@ -87,7 +78,6 @@ async function loadOrders() {
       div.style.padding = "10px";
 
       let itemsHTML = "";
-
       (order.items || []).forEach(item => {
         itemsHTML += `<li>${item.name} - ${item.qty}</li>`;
       });
@@ -98,27 +88,17 @@ async function loadOrders() {
         <h3>👤 ${order.customer}</h3>
         <p>📞 ${order.phone}</p>
         <ul>${itemsHTML}</ul>
-
         <p><strong>Total: Rs ${order.total}</strong></p>
-
         <p>Status: 
           <span style="color:${status === "Pending" ? "orange" : "green"}">
             ${status}
           </span>
         </p>
-
-        <button onclick="updateStatus('${order._id}', 'Delivered')">
-          ✅ Mark Delivered
-        </button>
-
-        <button onclick="deleteOrder('${order._id}')">
-          ❌ Delete
-        </button>
+        <button onclick="updateStatus('${order._id}', 'Delivered')">✅ Mark Delivered</button>
+        <button onclick="deleteOrder('${order._id}')">❌ Delete</button>
       `;
-
       orderDiv.appendChild(div);
     });
-
   } catch (err) {
     console.error(err);
     orderDiv.innerHTML = "Error loading orders";
@@ -216,19 +196,15 @@ async function placeOrder() {
   };
 
   try {
-    await fetch(`${API_URL}/place-order`, {
+    await fetch(`${API_BASE}/place-order`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order)
     });
 
     alert("✅ Order saved!");
-
     cart = {};
     renderCart();
-
   } catch (err) {
     console.error(err);
     alert("❌ Error saving order");
@@ -240,13 +216,9 @@ async function deleteOrder(id) {
   if (!confirm("Delete this order?")) return;
 
   try {
-    await fetch(`${API_URL}/order/${id}`, {
-      method: "DELETE"
-    });
-
+    await fetch(`${API_BASE}/order/${id}`, { method: "DELETE" });
     alert("Order deleted!");
     loadOrders();
-
   } catch (err) {
     console.error(err);
     alert("Error deleting order");
@@ -256,17 +228,14 @@ async function deleteOrder(id) {
 /* ================= UPDATE STATUS ================= */
 async function updateStatus(id, status) {
   try {
-    await fetch(`${API_URL}/order/${id}`, {
+    await fetch(`${API_BASE}/order/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status })
     });
 
     alert("Status updated!");
     loadOrders();
-
   } catch (err) {
     console.error(err);
     alert("Error updating status");
