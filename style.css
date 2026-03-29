@@ -12,7 +12,7 @@ h1, h2, h3 {
 
 button {
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 6px 10px;
   border: none;
   border-radius: 5px;
 }
@@ -31,10 +31,6 @@ button:hover {
   padding: 10px 20px;
 }
 
-.navbar h2 {
-  margin: 0;
-}
-
 .navbar ul {
   list-style: none;
   display: flex;
@@ -46,7 +42,6 @@ button:hover {
 .navbar a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .navbar a:hover {
@@ -56,33 +51,38 @@ button:hover {
 /* ================= FILTERS ================= */
 #searchInput,
 select {
-  padding: 7px 10px;
+  padding: 8px 10px;
   margin: 10px 5px 10px 0;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-/* ================= PRODUCTS ================= */
+/* ================= PRODUCTS GRID ================= */
 #products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
   margin: 20px 0;
 }
 
+/* ================= PRODUCT CARD ================= */
 .product {
   background-color: #fff;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
   text-align: center;
 }
 
+/* IMAGE */
 .product img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
   border-radius: 5px;
-  margin-bottom: 5px;
 }
 
+/* BUTTON */
 .product button {
   background-color: #27ae60;
   color: #fff;
@@ -91,6 +91,22 @@ select {
 
 .product button:hover {
   background-color: #219150;
+}
+
+/* ================= CART CONTROLS ================= */
+.cart-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* ✅ FIX OVERFLOW HERE */
+.product input[type="number"] {
+  width: 55px;
+  padding: 5px;
+  text-align: center;
 }
 
 /* ================= CART ================= */
@@ -129,8 +145,6 @@ select {
 
 #orders button {
   margin: 5px 5px 0 0;
-  padding: 5px 8px;
-  border-radius: 5px;
 }
 
 #orders button:first-of-type {
@@ -143,16 +157,8 @@ select {
   color: #fff;
 }
 
-#orders button:first-of-type:hover {
-  background-color: #219150;
-}
-
-#orders button:last-of-type:hover {
-  background-color: #c0392b;
-}
-
-/* ================= CUSTOMER DETAILS ================= */
-input[type="text"], input[type="number"] {
+/* ================= CUSTOMER INPUT ================= */
+input[type="text"] {
   padding: 7px 10px;
   margin: 5px 0;
   border-radius: 5px;
@@ -160,6 +166,13 @@ input[type="text"], input[type="number"] {
   width: 200px;
 }
 
-h3 span {
-  font-weight: bold;
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  #products {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .product img {
+    height: 100px;
+  }
 }
